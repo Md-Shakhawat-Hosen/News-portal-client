@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+
 const Login = () => {
     const { signInEmail, signInGoogle } = useContext(AuthContext);
 
@@ -19,6 +21,8 @@ const Login = () => {
             
             toast.success('Login Successfully')
             navigate('/')
+
+            
             
         })
         .catch(error=>{
@@ -27,11 +31,40 @@ const Login = () => {
     }
 
 
-    const handleGoogleSign = () =>{
+    const handleGoogleSign = async() =>{
         signInGoogle()
-        .then(()=>{
+        .then(async(result)=>{
             toast.success('login Successfully')
             navigate('/')
+            const user = result.user;
+           
+          if(user?.email){
+            
+            const userDetails = {
+              name: user?.displayName,
+              email: user?.email,
+              photo: user?.photoURL,
+              role: "normal",
+              premiumTaken: null,
+            };
+
+            try {
+              const response =await axios.post(
+                "http://localhost:5000/users",
+                userDetails
+              );
+              console.log("Response from server:", response.data);
+              //    if(response.data.insertedId){
+              //     Swal.fire({
+              //       title: "Good job!",
+              //       text: "You added the articles successfully and wait for admin approve!",
+              //       icon: "success",
+              //     });
+              //    }
+            } catch (error) {
+              console.error("Error making POST request:", error);
+            }
+          }
         })
         .catch(error=>{
             toast.error(`${error.message}`)

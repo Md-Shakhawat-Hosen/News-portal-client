@@ -20,6 +20,7 @@ const Register = () => {
 
        const navigate = useNavigate()
 
+
  
      const onSubmit = async (data) =>{
          console.log(data)
@@ -37,6 +38,29 @@ const Register = () => {
                toast.success('successfully login')
                userUpdateProfile(data.name, res.data.data.display_url)
                .then(()=>{
+                const userDetails = {
+                  name: data.name,
+                  email: data.email,
+                  photo: res.data.data.display_url,
+                  role: 'normal',
+                  premiumTaken: null
+                };
+                 try {
+               const response =  axios.post(
+                 "http://localhost:5000/users",
+                 userDetails
+               );
+               console.log("Response from server:", response.data);
+            //    if(response.data.insertedId){
+            //     Swal.fire({
+            //       title: "Good job!",
+            //       text: "You added the articles successfully and wait for admin approve!",
+            //       icon: "success",
+            //     });
+            //    }
+             } catch (error) {
+               console.error("Error making POST request:", error);
+             }
                  navigate('/')
                })
             })
@@ -60,7 +84,7 @@ const Register = () => {
                   <input
                     type="text"
                     placeholder="name"
-                    {...register("name")}
+                    {...register("name", { required: true })}
                     name="name"
                     className="input input-bordered"
                     required
@@ -84,7 +108,7 @@ const Register = () => {
                   <input
                     type="email"
                     placeholder="email"
-                    {...register("email")}
+                    {...register("email", { required: true })}
                     name="email"
                     className="input input-bordered"
                     required
@@ -97,7 +121,7 @@ const Register = () => {
                   <input
                     type="password"
                     placeholder="password"
-                    {...register("password")}
+                    {...register("password", { required: true })}
                     name="password"
                     className="input input-bordered"
                     required
