@@ -79,6 +79,7 @@ const AddArticles = () => {
               articleAuthorEmail: user?.email,
               articleAuthorPhoto: user?.photoURL,
               postedDate: date,
+              isPremium: false,
               status: "pending",
             };
             console.log(addedArticles)

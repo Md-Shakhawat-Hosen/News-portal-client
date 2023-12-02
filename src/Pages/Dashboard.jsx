@@ -7,7 +7,7 @@ const Dashboard = () => {
       <div className="max-w-screen-xl mx-auto px-6">
       <Navbar></Navbar>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="grid col-span-3 bg-cyan-300 h-[100vh] p-3">
+          <div className="grid lg:col-span-3 bg-cyan-300 h-[100vh] p-3">
             <div className="flex flex-col gap-6">
               <NavLink
                 className={({ isActive }) => (isActive ? "bg-blue-600 p-3 text-white" : "")}
@@ -29,8 +29,8 @@ const Dashboard = () => {
               </NavLink>
             </div>
           </div>
-          <div className="grid col-span-9">
-            <div>
+          <div className="grid lg:col-span-9">
+            <div className="px-4">
               <Outlet></Outlet>
             </div>
           </div>

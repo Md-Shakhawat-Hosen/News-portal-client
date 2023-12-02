@@ -5,26 +5,33 @@ import useUsers from "../Hooks/useUsers";
 
 const AllUsers = () => {
     const [allUsers, setAllUsers] = useState([]);
-    const { data,refetch } = useUsers();
+    const { data,isLoading,refetch } = useUsers();
 
-    console.log(data);
+    // console.log(data);
+    
+    console.log(isLoading)
+          useEffect(() => {
+            // axios.get("http://localhost:5000/users")
+            // .then(res=>setAllUsers(res.data))
+           if (!isLoading){
+              setAllUsers(data);
+           }
+            
+          
+          }, [isLoading,data]);
+    
+
+   
 
 
-    useEffect(()=>{
-        // axios.get("http://localhost:5000/users")
-        // .then(res=>setAllUsers(res.data))
-        setAllUsers(data)
-    },[data])
-
-
-    console.log(allUsers)
+    // console.log(allUsers)
 
     
     const handleMakeAdmin = (email)=>{
-        console.log(email)
+        // console.log(email)
 
         const makeAdmin = data.find(user => user.email == email);
-        console.log(makeAdmin)
+        // console.log(makeAdmin)
 
         axios.patch("http://localhost:5000/users",makeAdmin)
         .then(res=>{
