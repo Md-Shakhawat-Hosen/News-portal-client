@@ -4,9 +4,10 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 import toast, { Toaster } from "react-hot-toast";
 
+
 const Navbar = () => {
-    const {user,logOut} = useContext(AuthContext);
- 
+    const {user,logOut,roleUser} = useContext(AuthContext);
+
 
     const handleLogOut = () =>{
         logOut()
@@ -19,14 +20,19 @@ const Navbar = () => {
         })
     }
 
-    console.log(user)
+    // console.log(user)
     const navLinks = <>
      
      <li><NavLink to='/'>Home</NavLink></li>
      <li><NavLink to='/add-articles'>Add Articles</NavLink></li>
      <li><NavLink to='/all-articles'>All Articles</NavLink></li>
      <li><NavLink to='/subscription'>Subscription</NavLink></li>
-     <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+     
+     {
+      roleUser == 'admin' ? <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+      :
+      ''
+     }
      <li><NavLink to='/my-articles'>My Articles</NavLink></li>
      <li><NavLink to='/premium-articles'>Premium Articles</NavLink></li>
     

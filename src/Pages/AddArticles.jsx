@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import axios from 'axios'
 import Title from "../components/Title/Title";
@@ -11,6 +11,22 @@ const AddArticles = () => {
      const [selectedOption, setSelectedOption] = useState(null);
      const [selectedOptionPublisher, setSelectedOptionPublisher] = useState(null);
      const {user} = useContext(AuthContext)
+
+     const [publisher, setPublisher] = useState([])
+
+     useEffect(()=>{
+          axios.get("http://localhost:5000/addPublisher")
+          .then(res => setPublisher(res.data))
+     },[]);
+    //  console.log(publisher);
+
+     const publisherNames = publisher.map((item) => ({
+       value: item.title.toLowerCase(),
+       label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
+     }));
+
+   
+     
 
     const date =  moment().format("MMMM Do YYYY");
 
@@ -28,15 +44,7 @@ const AddArticles = () => {
        
      ];
 
-     const publisherNames = [
-       { value: "newsco", label: "NewsCo" },
-       { value: "pressX", label: "PressX" },
-       { value: "timesInformed", label: "TimesInformed" },
-       { value: "dailyGlobe", label: "DailyGlobe" },
-       { value: "cityHerald", label: "CityHerald" },
-       { value: "worldInsights", label: "WorldInsights" },
-       
-     ];
+    
 
 
     

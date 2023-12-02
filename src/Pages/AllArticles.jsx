@@ -20,7 +20,7 @@ const AllArticles = () => {
         
     },[isLoading,data])
 
-    console.log(allArticles)
+    // console.log(allArticles)
 
     const handleArticleApprove = (id, val) =>{
         // console.log(id)
@@ -30,7 +30,7 @@ const AllArticles = () => {
         const a = {val}
         axios.patch(`http://localhost:5000/addArticles/${id}`, a)
         .then(res => {
-            console.log('add articles', res.data)
+            // console.log('add articles', res.data)
             if (res.data.modifiedCount > 0) {
                   refetch()
                   toast.success(`Successfully ${val}`)
@@ -38,7 +38,7 @@ const AllArticles = () => {
         })
     }
     const handleArticleDelete = (id)=>{
-        console.log(id)
+        // console.log(id)
          axios
            .delete(`http://localhost:5000/addArticles/${id}`)
            .then((res) => {
@@ -51,14 +51,14 @@ const AllArticles = () => {
     }
 
     const handleDecline = (id) =>{
-        console.log(declineReason)
-        console.log(id);
+        // console.log(declineReason)
+        // console.log(id);
         const a = {val:'decline', reason: declineReason}
-        console.log(a);
+        // console.log(a);
         axios
           .patch(`http://localhost:5000/addArticles/${id}`, a)
           .then((res) => {
-            console.log("add articles", res.data);
+            // console.log("add articles", res.data);
             if (res.data.modifiedCount > 0) {
               refetch();
               setDeclineReason('')
@@ -115,7 +115,7 @@ const AllArticles = () => {
 
                 <div className="flex mt-4 gap-3">
                   <div className="flex gap-2">
-                    {article?.status == "pending" ? (
+                    {article?.status == "pending" || article?.status == 'decline' ? (
                       <button
                         onClick={() =>
                           handleArticleApprove(article._id, "approve")
