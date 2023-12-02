@@ -37,9 +37,13 @@ const Login = () => {
             toast.success('login Successfully')
             navigate('/')
             const user = result.user;
-           
-          if(user?.email){
+
+            const res = await axios.get(`http://localhost:5000/users?email=${user?.email}`);
             
+           
+          if (user?.email == res.data[0]?.email) {
+            return;
+          }else {
             const userDetails = {
               name: user?.displayName,
               email: user?.email,
@@ -49,7 +53,7 @@ const Login = () => {
             };
 
             try {
-              const response =await axios.post(
+              const response = await axios.post(
                 "http://localhost:5000/users",
                 userDetails
               );

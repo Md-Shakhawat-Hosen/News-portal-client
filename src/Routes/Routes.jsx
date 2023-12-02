@@ -1,6 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import AddArticles from "../Pages/AddArticles";
+import AddPublisher from "../Pages/AddPublisher";
+import AllArticles from "../Pages/AllArticles";
+import AllUsers from "../Pages/AllUsers";
+import Charts from "../Pages/Charts";
+import Dashboard from "../Pages/Dashboard";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
@@ -19,10 +24,35 @@ const Routes = createBrowserRouter([
             {
                 path: 'add-articles',
                 element:<AddArticles></AddArticles>
-            }
+            },
+            
         ]
 
     },
+
+    {
+        path: '/dashboard',
+        element: <Dashboard></Dashboard>,
+        children:[
+            {
+             path: '/dashboard',
+             element:<Charts></Charts>,
+            },
+            {
+                path:'/dashboard/allUsers',
+                element:<AllUsers></AllUsers>
+            },
+            {
+                path:'/dashboard/addPublisher',
+                element:<AddPublisher></AddPublisher>
+            },
+            {
+                path:'/dashboard/allArticles',
+                element:<AllArticles></AllArticles>
+            }
+        ]
+     },
+    
     {
        path: 'register',
        element: <Register></Register>
