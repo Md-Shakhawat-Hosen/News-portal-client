@@ -185,7 +185,10 @@ const AddArticles = () => {
           </label>
         </div>
 
-        <button type="submit" className="btn w-full mt-10">
+        <button
+          type="submit"
+          className="bg-cyan-300 py-3 text-white w-full mt-10"
+        >
           submit
         </button>
       </form>

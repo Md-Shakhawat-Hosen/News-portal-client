@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import UpdateArticles from "../components/UpdateArticles/UpdateArticles";
 import MainLayout from "../Layout/MainLayout";
 import AddArticles from "../Pages/AddArticles";
 import AddPublisher from "../Pages/AddPublisher";
@@ -34,6 +35,10 @@ const Routes = createBrowserRouter([
       {
         path: "my-articles",
         element: <MyArticles></MyArticles>,
+      },
+      {
+        path: "update-articles/:id",
+        element: <UpdateArticles></UpdateArticles>
       },
     ],
   },

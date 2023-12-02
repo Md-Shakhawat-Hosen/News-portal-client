@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 import useAllArticles from "../Hooks/useAllArticles";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -21,12 +22,12 @@ const MyArticles = () => {
         }
     },[data,isLoading, user?.email])
     
-    console.log(myArticles);
+    // console.log(myArticles);
 
     const handleDeleteMyArticle = (id) =>{
-        console.log(id)
+        // console.log(id)
          axios.delete(`http://localhost:5000/addArticles/${id}`).then((res) => {
-           console.log("delete my articles", res.data);
+        //    console.log("delete my articles", res.data);
            if (res.data.deletedCount > 0) {
              refetch();
              toast.success("Successfully Deleted");
@@ -107,9 +108,12 @@ const MyArticles = () => {
                     <button className="bg-cyan-400 p-3 text-white">
                       Details
                     </button>
-                    <button className="bg-cyan-400 p-3 text-white">
+                    <NavLink
+                      to={`/update-articles/${article._id}`}
+                      className="bg-cyan-400 p-3 text-white"
+                    >
                       Update
-                    </button>
+                    </NavLink>
                     <button
                       onClick={() => handleDeleteMyArticle(article?._id)}
                       className="bg-red-400 p-3 text-white"
