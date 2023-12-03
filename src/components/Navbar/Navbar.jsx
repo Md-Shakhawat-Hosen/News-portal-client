@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../Provider/AuthProvider";
 
 import toast, { Toaster } from "react-hot-toast";
-
+import logo_news from '../../../public/images/logoNews_prev_ui.png'
 
 const Navbar = () => {
     const {user,logOut,roleUser,setRoleUser} = useContext(AuthContext);
@@ -85,7 +85,10 @@ const Navbar = () => {
                 {navLinks}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">NewsPaper</a>
+            <div className="flex items-center justify-center">
+              <img className="w-[60px]" src={logo_news} alt="" />
+               <span className="font-bold text-xl mr-3">NewsPortal</span>
+            </div>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{navLinks}</ul>

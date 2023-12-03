@@ -69,12 +69,6 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
 
-      if(roleUser[0]?.role == 'admin') {
-        setLoading(false)
-      }
-      else {
-        setLoading(true)
-      }
     });
     return () => unsubscribe();
   }, [roleUser]);

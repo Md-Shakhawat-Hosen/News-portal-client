@@ -11,7 +11,7 @@ const AdminPrivateRoute = ({children}) => {
         return <Spinner></Spinner>
     }
 
-    if (user?.email && roleUser[0]?.role == 'admin') {
+    if (user?.email || roleUser[0]?.role == 'admin') {
          return children
     }
 

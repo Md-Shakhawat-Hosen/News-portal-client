@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-
+import logo_news from '../../../public/images/logoNews_prev_ui.png'
 const Footer = () => {
     return (
       <div>
@@ -11,10 +11,10 @@ const Footer = () => {
                 href="https://flowbite.com/"
                 className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
               >
-               
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                 NewsPaper
-                </span>
+                <div className="flex items-center justify-center">
+                  <img className="w-[60px]" src={logo_news} alt="" />
+                  <span className="font-bold text-xl mr-3">NewsPortal</span>
+                </div>
               </a>
               <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                 <li>
@@ -43,7 +43,7 @@ const Footer = () => {
             <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2023{" "}
               <NavLink to="/" className="hover:underline">
-                NewsPaper
+                NewsPortal
               </NavLink>
               . All Rights Reserved.
             </span>
