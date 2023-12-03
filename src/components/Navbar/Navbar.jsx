@@ -1,19 +1,21 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../Provider/AuthProvider";
 
 import toast, { Toaster } from "react-hot-toast";
 
 
 const Navbar = () => {
-    const {user,logOut,roleUser} = useContext(AuthContext);
+    const {user,logOut,roleUser,setRoleUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
-
+  
     const handleLogOut = () =>{
         logOut()
         .then(()=>{
            toast.success("Successfully logout!");
-           
+           setRoleUser([])
+           navigate('/')
         })
         .catch(error =>{
             toast.error(`${error.message}`)
@@ -21,22 +23,36 @@ const Navbar = () => {
     }
 
     // console.log(user)
-    const navLinks = <>
-     
-     <li><NavLink to='/'>Home</NavLink></li>
-     <li><NavLink to='/add-articles'>Add Articles</NavLink></li>
-     <li><NavLink to='/all-articles'>All Articles</NavLink></li>
-     <li><NavLink to='/subscription'>Subscription</NavLink></li>
-     
-     {
-      roleUser == 'admin' ? <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
-      :
-      ''
-     }
-     <li><NavLink to='/my-articles'>My Articles</NavLink></li>
-     <li><NavLink to='/premium-articles'>Premium Articles</NavLink></li>
-    
-    </>
+    const navLinks = (
+      <>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/add-articles">Add Articles</NavLink>
+        </li>
+        <li>
+          <NavLink to="/all-articles">All Articles</NavLink>
+        </li>
+        <li>
+          <NavLink to="/subscription">Subscription</NavLink>
+        </li>
+
+        {roleUser[0]?.role == "admin" ? (
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+        ) : (
+          ""
+        )}
+        <li>
+          <NavLink to="/my-articles">My Articles</NavLink>
+        </li>
+        <li>
+          <NavLink to="/premium-articles">Premium Articles</NavLink>
+        </li>
+      </>
+    );
     return (
       <div>
         <div>

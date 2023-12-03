@@ -14,6 +14,8 @@ import Login from "../Pages/Login";
 import MyArticles from "../Pages/MyArticles";
 import PremiumArticles from "../Pages/PremiumArticles";
 import Register from "../Pages/Register";
+import AdminPrivateRoute from "../Private/AdminPrivateRoute";
+import PrivateRoute from "../Private/PrivateRoute";
 
 
 
@@ -29,7 +31,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: "add-articles",
-        element: <AddArticles></AddArticles>,
+        element: (
+          <PrivateRoute>
+            <AddArticles></AddArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-articles",
@@ -37,7 +43,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: "my-articles",
-        element: <MyArticles></MyArticles>,
+        element: (
+          <PrivateRoute>
+            <MyArticles></MyArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "update-articles/:id",
@@ -45,14 +55,22 @@ const Routes = createBrowserRouter([
       },
       {
         path: "premium-articles",
-        element: <PremiumArticles></PremiumArticles>,
+        element: (
+          <PrivateRoute>
+            <PremiumArticles></PremiumArticles>
+          </PrivateRoute>
+        ),
       },
     ],
   },
 
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <AdminPrivateRoute>
+        <Dashboard></Dashboard>
+      </AdminPrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",

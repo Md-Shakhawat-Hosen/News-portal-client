@@ -29,7 +29,9 @@ const AuthProvider = ({ children }) => {
         .get(
           `https://newspapwer-a-12-server.vercel.app/users?email=${user?.email}`
         )
-        .then((res) => setRoleUser(res.data[0].role));
+        .then((res) => {
+          setRoleUser(res.data)
+        });
     }
   }, [user?.email]);
   //   console.log(roleUser)
@@ -45,6 +47,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInGoogle = () => {
+    setLoading(true)
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -62,11 +65,19 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setLoading(false);
+      
       setUser(currentUser);
+      setLoading(false);
+
+      if(roleUser[0]?.role == 'admin') {
+        setLoading(false)
+      }
+      else {
+        setLoading(true)
+      }
     });
     return () => unsubscribe();
-  }, []);
+  }, [roleUser]);
 
   const constInfo = {
     createUserEmail,
@@ -77,6 +88,7 @@ const AuthProvider = ({ children }) => {
     userUpdateProfile,
     signInGoogle,
     roleUser,
+    setRoleUser
   };
   return (
     <AuthContext.Provider value={constInfo}>{children}</AuthContext.Provider>
