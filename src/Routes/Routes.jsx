@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import NotFound from "../components/NotFound/NotFound";
 import UpdateArticles from "../components/UpdateArticles/UpdateArticles";
 import MainLayout from "../Layout/MainLayout";
 import AddArticles from "../Pages/AddArticles";
@@ -11,6 +12,7 @@ import Dashboard from "../Pages/Dashboard";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import MyArticles from "../Pages/MyArticles";
+import PremiumArticles from "../Pages/PremiumArticles";
 import Register from "../Pages/Register";
 
 
@@ -19,6 +21,7 @@ const Routes = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         path: "/",
@@ -38,7 +41,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: "update-articles/:id",
-        element: <UpdateArticles></UpdateArticles>
+        element: <UpdateArticles></UpdateArticles>,
+      },
+      {
+        path: "premium-articles",
+        element: <PremiumArticles></PremiumArticles>,
       },
     ],
   },

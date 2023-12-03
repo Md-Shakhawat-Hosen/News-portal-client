@@ -1,115 +1,106 @@
 import { useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import Select from "react-select";
-import axios from 'axios'
+import axios from "axios";
 import Title from "../components/Title/Title";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import moment from "moment";
 
 const AddArticles = () => {
-     const [selectedOption, setSelectedOption] = useState(null);
-     const [selectedOptionPublisher, setSelectedOptionPublisher] = useState(null);
-     const {user} = useContext(AuthContext)
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionPublisher, setSelectedOptionPublisher] = useState(null);
+  const { user } = useContext(AuthContext);
 
-     const [publisher, setPublisher] = useState([])
+  const [publisher, setPublisher] = useState([]);
 
-     useEffect(()=>{
-          axios.get("http://localhost:5000/addPublisher")
-          .then(res => setPublisher(res.data))
-     },[]);
-    //  console.log(publisher);
+  useEffect(() => {
+    axios
+      .get("https://newspapwer-a-12-server.vercel.app/addPublisher")
+      .then((res) => setPublisher(res.data));
+  }, []);
+  //  console.log(publisher);
 
-     const publisherNames = publisher.map((item) => ({
-       value: item.title.toLowerCase(),
-       label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
-     }));
+  const publisherNames = publisher.map((item) => ({
+    value: item.title.toLowerCase(),
+    label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
+  }));
 
-   
-     
+  const date = moment().format("MMMM Do YYYY");
 
-    const date =  moment().format("MMMM Do YYYY");
+  const options = [
+    { value: "politics", label: "Politics" },
+    { value: "business", label: "Business" },
+    { value: "technology", label: "Technology" },
+    { value: "entertainment", label: "Entertainment" },
+    { value: "sports", label: "Sports" },
+    { value: "health", label: "Health" },
+    { value: "science", label: "Science" },
+    { value: "education", label: "Education" },
+    { value: "opinion", label: "Opinion" },
+  ];
 
-    
-     const options = [
-       { value: "politics", label: "Politics" },
-       { value: "business", label: "Business" },
-       { value: "technology", label: "Technology" },
-       { value: "entertainment", label: "Entertainment" },
-       { value: "sports", label: "Sports" },
-       { value: "health", label: "Health" },
-       { value: "science", label: "Science" },
-       { value: "education", label: "Education" },
-       { value: "opinion", label: "Opinion" },
-       
-     ];
+  const { register, handleSubmit } = useForm();
 
-    
+  const api_key = import.meta.env.VITE_image_api;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${api_key}`;
 
+  const onSubmit = async (data) => {
+    console.log(data);
 
-    
-    const { register, handleSubmit } = useForm();
+    // console.log(selectedOption)
+    // console.log(selectedOptionPublisher)
 
-    const api_key = import.meta.env.VITE_image_api;
-    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${api_key}`;
+    const imageFile = { image: data.image[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(res.data);
 
+    // const addedArticles = {
+    //     title: data.title,
+    //     image: res.data.data.display_url,
+    //     publisherTag: selectedOption,
+    //     publisherName: selectedOptionPublisher
 
-    const onSubmit = async data => {
-        console.log(data)
+    // }
 
-        // console.log(selectedOption)
-        // console.log(selectedOptionPublisher)
+    if (res.data.success) {
+      const addedArticles = {
+        title: data.title,
+        image: res.data.data.display_url,
+        publisherTag: selectedOption,
+        publisherName: selectedOptionPublisher,
+        description: data.description,
+        articleAuthorName: user?.displayName,
+        articleAuthorEmail: user?.email,
+        articleAuthorPhoto: user?.photoURL,
+        postedDate: date,
+        isPremium: false,
+        status: "pending",
+      };
+      console.log(addedArticles);
 
-        const imageFile = {image:data.image[0]}
-        const res = await axios.post(image_hosting_api,imageFile,{
-            headers:{
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        console.log(res.data)
-
-        // const addedArticles = {
-        //     title: data.title,
-        //     image: res.data.data.display_url,
-        //     publisherTag: selectedOption,
-        //     publisherName: selectedOptionPublisher
-
-        // }
-
-        if (res.data.success) {
-            const addedArticles = {
-              title: data.title,
-              image: res.data.data.display_url,
-              publisherTag: selectedOption,
-              publisherName: selectedOptionPublisher,
-              description: data.description,
-              articleAuthorName: user?.displayName,
-              articleAuthorEmail: user?.email,
-              articleAuthorPhoto: user?.photoURL,
-              postedDate: date,
-              isPremium: false,
-              status: "pending",
-            };
-            console.log(addedArticles)
-
-             try {
-               const response = await axios.post(
-                 "http://localhost:5000/addArticles",
-                 addedArticles
-               );
-               console.log("Response from server:", response.data);
-               if(response.data.insertedId){
-                Swal.fire({
-                  title: "Good job!",
-                  text: "You added the articles successfully and wait for admin approve!",
-                  icon: "success",
-                });
-               }
-             } catch (error) {
-               console.error("Error making POST request:", error);
-             }
+      try {
+        const response = await axios.post(
+          "https://newspapwer-a-12-server.vercel.app/addArticles",
+          addedArticles
+        );
+        console.log("Response from server:", response.data);
+        if (response.data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: "You added the articles successfully and wait for admin approve!",
+            icon: "success",
+          });
         }
+      } catch (error) {
+        console.error("Error making POST request:", error);
+      }
     }
+  };
 
   return (
     <div>

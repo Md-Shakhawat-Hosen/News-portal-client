@@ -13,9 +13,9 @@ import app from "../firebase/firebase-config";
 import axios from "axios";
 const auth = getAuth(app);
 
-export const AuthContext = createContext(null)
+export const AuthContext = createContext(null);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const [user, setUser] = useState(null);
@@ -24,14 +24,15 @@ const AuthProvider = ({children}) => {
   const [roleUser, setRoleUser] = useState([]);
 
   useEffect(() => {
-    if(user?.email){
-        axios
-          .get(`http://localhost:5000/users?email=${user?.email}`)
-          .then((res) => setRoleUser(res.data[0].role));
+    if (user?.email) {
+      axios
+        .get(
+          `https://newspapwer-a-12-server.vercel.app/users?email=${user?.email}`
+        )
+        .then((res) => setRoleUser(res.data[0].role));
     }
   }, [user?.email]);
-//   console.log(roleUser)
-
+  //   console.log(roleUser)
 
   const createUserEmail = (email, password) => {
     setLoading(true);
@@ -75,7 +76,7 @@ const AuthProvider = ({children}) => {
     logOut,
     userUpdateProfile,
     signInGoogle,
-    roleUser
+    roleUser,
   };
   return (
     <AuthContext.Provider value={constInfo}>{children}</AuthContext.Provider>

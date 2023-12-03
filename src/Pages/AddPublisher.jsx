@@ -4,55 +4,50 @@ import Swal from "sweetalert2";
 import Title from "../components/Title/Title";
 
 const AddPublisher = () => {
+  const api_key = import.meta.env.VITE_image_api;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${api_key}`;
 
-     const api_key = import.meta.env.VITE_image_api;
-     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${api_key}`;
+  const { register, handleSubmit } = useForm();
 
-    const { register, handleSubmit } = useForm();
+  const onSubmit = async (data) => {
+    console.log(data);
 
+    const imageFile = { image: data.image[0] };
+    const res = await axios.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(res.data);
 
-        const onSubmit = async (data) => {
-          console.log(data);
+    if (res.data.success) {
+      const addPublisher = {
+        title: data.title,
+        image: res.data.data.display_url,
+      };
+      console.log(addPublisher);
 
-
-          const imageFile = { image: data.image[0] };
-          const res = await axios.post(image_hosting_api, imageFile, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
+      try {
+        const response = await axios.post(
+          "https://newspapwer-a-12-server.vercel.app/addPublisher",
+          addPublisher
+        );
+        console.log("Response from server:", response.data);
+        if (response.data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: "You added the Publisher successfully",
+            icon: "success",
           });
-          console.log(res.data);
-
-
-          if (res.data.success) {
-            const addPublisher = {
-              title: data.title,
-              image: res.data.data.display_url,
-              
-            };
-            console.log(addPublisher);
-
-            try {
-              const response = await axios.post(
-                "http://localhost:5000/addPublisher",
-                addPublisher
-              );
-              console.log("Response from server:", response.data);
-              if (response.data.insertedId) {
-                Swal.fire({
-                  title: "Good job!",
-                  text: "You added the Publisher successfully",
-                  icon: "success",
-                });
-              }
-            } catch (error) {
-              console.error("Error making POST request:", error);
-            }
-          }
-        };
+        }
+      } catch (error) {
+        console.error("Error making POST request:", error);
+      }
+    }
+  };
   return (
     <div>
-      <Title title='Add Publisher'></Title>
+      <Title title="Add Publisher"></Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="w-full">

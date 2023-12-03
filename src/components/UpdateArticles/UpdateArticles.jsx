@@ -16,24 +16,24 @@ const UpdateArticles = () => {
 
   const [publisher, setPublisher] = useState([]);
 
-  const {id} = useParams();
-//   console.log(id);
+  const { id } = useParams();
+  //   console.log(id);
 
-  const [updatedArticles, setUpdatedArticles] = useState([])
-  const {data,isLoading} = useAllArticles();
+  const [updatedArticles, setUpdatedArticles] = useState([]);
+  const { data, isLoading } = useAllArticles();
 
-  useEffect(()=>{
-        if (!isLoading){
-            const singleUpdateArticles = data.find((own) => own._id == id);
-            setUpdatedArticles(singleUpdateArticles);
-        }
-  },[data,id,isLoading])
+  useEffect(() => {
+    if (!isLoading) {
+      const singleUpdateArticles = data.find((own) => own._id == id);
+      setUpdatedArticles(singleUpdateArticles);
+    }
+  }, [data, id, isLoading]);
 
-//   console.log(updatedArticles)
+  //   console.log(updatedArticles)
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/addPublisher")
+      .get("https://newspapwer-a-12-server.vercel.app/addPublisher")
       .then((res) => setPublisher(res.data));
   }, []);
   //  console.log(publisher);
@@ -98,11 +98,11 @@ const UpdateArticles = () => {
         isPremium: false,
         status: "pending",
       };
-    //   console.log(addedArticles);
+      //   console.log(addedArticles);
 
       try {
         const response = await axios.put(
-          `http://localhost:5000/addArticles/${id}`,
+          `https://newspapwer-a-12-server.vercel.app/addArticles/${id}`,
           addedArticles
         );
         // console.log("Response from server:", response.data);
@@ -159,7 +159,7 @@ const UpdateArticles = () => {
             </div>
             <div className="App">
               <Select
-              required
+                required
                 isMulti
                 defaultValue={selectedOption}
                 onChange={setSelectedOption}
@@ -197,7 +197,10 @@ const UpdateArticles = () => {
           </label>
         </div>
 
-        <button type="submit" className="bg-cyan-300 py-3 text-white w-full mt-10">
+        <button
+          type="submit"
+          className="bg-cyan-300 py-3 text-white w-full mt-10"
+        >
           Update
         </button>
       </form>
