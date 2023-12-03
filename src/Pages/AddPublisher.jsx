@@ -32,7 +32,7 @@ const AddPublisher = () => {
           "https://newspapwer-a-12-server.vercel.app/addPublisher",
           addPublisher
         );
-        console.log("Response from server:", response.data);
+        // console.log("Response from server:", response.data);
         if (response.data.insertedId) {
           Swal.fire({
             title: "Good job!",

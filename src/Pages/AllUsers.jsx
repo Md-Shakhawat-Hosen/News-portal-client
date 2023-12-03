@@ -8,7 +8,7 @@ const AllUsers = () => {
 
   // console.log(data);
 
-  console.log(isLoading);
+  // console.log(isLoading);
   useEffect(() => {
     // axios.get("https://newspapwer-a-12-server.vercel.app/users")
     // .then(res=>setAllUsers(res.data))

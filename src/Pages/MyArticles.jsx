@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { NavLink } from "react-router-dom";
+import Title from "../components/Title/Title";
 import useAllArticles from "../Hooks/useAllArticles";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -40,7 +41,7 @@ const MyArticles = () => {
       <div>
         <Toaster />
       </div>
-      <h1>My articles</h1>
+     <Title title='My Articles'></Title>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
