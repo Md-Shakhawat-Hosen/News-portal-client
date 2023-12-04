@@ -16,7 +16,7 @@ const AddArticles = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/addPublisher")
+      .get("https://newspapwer-a-12-server.vercel.app/addPublisher")
       .then((res) => setPublisher(res.data));
   }, []);
   //  console.log(publisher);
@@ -85,7 +85,7 @@ const AddArticles = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/addArticles",
+          "https://newspapwer-a-12-server.vercel.app/addArticles",
           addedArticles
         );
         console.log("Response from server:", response.data);

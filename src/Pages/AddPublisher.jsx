@@ -29,7 +29,7 @@ const AddPublisher = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/addPublisher",
+          "https://newspapwer-a-12-server.vercel.app/addPublisher",
           addPublisher
         );
         // console.log("Response from server:", response.data);

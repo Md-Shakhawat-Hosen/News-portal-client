@@ -25,7 +25,9 @@ const PremiumArticles = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/users?email=${user?.email}`)
+        .get(
+          `https://newspapwer-a-12-server.vercel.app/users?email=${user?.email}`
+        )
         .then((res) => setIsUserPremium(res.data));
     }
   }, [user?.email]);

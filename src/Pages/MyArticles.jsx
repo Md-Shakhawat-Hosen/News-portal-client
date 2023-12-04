@@ -26,13 +26,15 @@ const MyArticles = () => {
 
   const handleDeleteMyArticle = (id) => {
     // console.log(id)
-    axios.delete(`http://localhost:5000/addArticles/${id}`).then((res) => {
-      //    console.log("delete my articles", res.data);
-      if (res.data.deletedCount > 0) {
-        refetch();
-        toast.success("Successfully Deleted");
-      }
-    });
+    axios
+      .delete(`https://newspapwer-a-12-server.vercel.app/addArticles/${id}`)
+      .then((res) => {
+        //    console.log("delete my articles", res.data);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          toast.success("Successfully Deleted");
+        }
+      });
   };
   return (
     <div>

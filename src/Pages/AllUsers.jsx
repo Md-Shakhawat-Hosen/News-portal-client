@@ -10,7 +10,7 @@ const AllUsers = () => {
 
   // console.log(isLoading);
   useEffect(() => {
-    // axios.get("http://localhost:5000/users")
+    // axios.get("https://newspapwer-a-12-server.vercel.app/users")
     // .then(res=>setAllUsers(res.data))
     if (!isLoading) {
       setAllUsers(data);
@@ -25,13 +25,15 @@ const AllUsers = () => {
     const makeAdmin = data.find((user) => user.email == email);
     // console.log(makeAdmin)
 
-    axios.patch("http://localhost:5000/users", makeAdmin).then((res) => {
-      console.log("PATCH request successful:", res.data);
-      if (res.data.modifiedCount > 0) {
-        refetch();
-        //  setAllUsers(data)
-      }
-    });
+    axios
+      .patch("https://newspapwer-a-12-server.vercel.app/users", makeAdmin)
+      .then((res) => {
+        console.log("PATCH request successful:", res.data);
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          //  setAllUsers(data)
+        }
+      });
   };
   return (
     <div>

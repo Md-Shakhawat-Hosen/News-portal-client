@@ -32,7 +32,7 @@ const Login = () => {
         const user = result.user;
 
         const res = await axios.get(
-          `http://localhost:5000/users?email=${user?.email}`
+          `https://newspapwer-a-12-server.vercel.app/users?email=${user?.email}`
         );
 
         if (user?.email == res.data[0]?.email) {
@@ -48,7 +48,7 @@ const Login = () => {
 
           try {
             const response = await axios.post(
-              "http://localhost:5000/users",
+              "https://newspapwer-a-12-server.vercel.app/users",
               userDetails
             );
             console.log("Response from server:", response.data);

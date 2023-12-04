@@ -3,7 +3,9 @@ const useUsers = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const data = await fetch("http://localhost:5000/users");
+      const data = await fetch(
+        "https://newspapwer-a-12-server.vercel.app/users"
+      );
       return await data.json();
     },
   });

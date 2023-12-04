@@ -40,7 +40,7 @@ const Register = () => {
             };
             try {
               const response = axios.post(
-                "http://localhost:5000/users",
+                "https://newspapwer-a-12-server.vercel.app/users",
                 userDetails
               );
               console.log("Response from server:", response.data);
