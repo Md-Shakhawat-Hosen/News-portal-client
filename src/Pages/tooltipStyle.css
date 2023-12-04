@@ -1,0 +1,22 @@
+.tooltip {
+      position: relative;
+      display: inline-block;
+      @apply cursor-default;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 6rem;
+      @apply bg-gray-800 text-white text-center rounded p-2 absolute z-10 bottom-full left-1/2 transform -translate-x-1/2 opacity-0 transition-opacity duration-300;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      @apply opacity-100;
+    }
+
+    /* Custom Tailwind CSS class for the disabled button */
+    .disabled-button {
+      @apply cursor-not-allowed opacity-50;
+      /* You can add more styles for the disabled state as needed */
+    }

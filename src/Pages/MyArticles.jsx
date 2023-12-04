@@ -26,22 +26,20 @@ const MyArticles = () => {
 
   const handleDeleteMyArticle = (id) => {
     // console.log(id)
-    axios
-      .delete(`https://newspapwer-a-12-server.vercel.app/addArticles/${id}`)
-      .then((res) => {
-        //    console.log("delete my articles", res.data);
-        if (res.data.deletedCount > 0) {
-          refetch();
-          toast.success("Successfully Deleted");
-        }
-      });
+    axios.delete(`http://localhost:5000/addArticles/${id}`).then((res) => {
+      //    console.log("delete my articles", res.data);
+      if (res.data.deletedCount > 0) {
+        refetch();
+        toast.success("Successfully Deleted");
+      }
+    });
   };
   return (
     <div>
       <div>
         <Toaster />
       </div>
-     <Title title='My Articles'></Title>
+      <Title title="My Articles"></Title>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}

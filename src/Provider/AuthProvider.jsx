@@ -26,11 +26,9 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(
-          `https://newspapwer-a-12-server.vercel.app/users?email=${user?.email}`
-        )
+        .get(`http://localhost:5000/users?email=${user?.email}`)
         .then((res) => {
-          setRoleUser(res.data)
+          setRoleUser(res.data);
         });
     }
   }, [user?.email]);
@@ -47,7 +45,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInGoogle = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -65,10 +63,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      
       setUser(currentUser);
       setLoading(false);
-
     });
     return () => unsubscribe();
   }, [roleUser]);
@@ -82,7 +78,7 @@ const AuthProvider = ({ children }) => {
     userUpdateProfile,
     signInGoogle,
     roleUser,
-    setRoleUser
+    setRoleUser,
   };
   return (
     <AuthContext.Provider value={constInfo}>{children}</AuthContext.Provider>

@@ -25,27 +25,23 @@ const AllArticles = () => {
 
     // console.log(singleArticle)
     const a = { val };
-    axios
-      .patch(`https://newspapwer-a-12-server.vercel.app/addArticles/${id}`, a)
-      .then((res) => {
-        // console.log('add articles', res.data)
-        if (res.data.modifiedCount > 0) {
-          refetch();
-          toast.success(`Successfully ${val}`);
-        }
-      });
+    axios.patch(`http://localhost:5000/addArticles/${id}`, a).then((res) => {
+      // console.log('add articles', res.data)
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        toast.success(`Successfully ${val}`);
+      }
+    });
   };
   const handleArticleDelete = (id) => {
     // console.log(id)
-    axios
-      .delete(`https://newspapwer-a-12-server.vercel.app/addArticles/${id}`)
-      .then((res) => {
-        console.log("add articles", res.data);
-        if (res.data.deletedCount > 0) {
-          refetch();
-          toast.success("Successfully Deleted");
-        }
-      });
+    axios.delete(`http://localhost:5000/addArticles/${id}`).then((res) => {
+      console.log("add articles", res.data);
+      if (res.data.deletedCount > 0) {
+        refetch();
+        toast.success("Successfully Deleted");
+      }
+    });
   };
 
   const handleDecline = (id) => {
@@ -53,16 +49,14 @@ const AllArticles = () => {
     // console.log(id);
     const a = { val: "decline", reason: declineReason };
     // console.log(a);
-    axios
-      .patch(`https://newspapwer-a-12-server.vercel.app/addArticles/${id}`, a)
-      .then((res) => {
-        // console.log("add articles", res.data);
-        if (res.data.modifiedCount > 0) {
-          refetch();
-          setDeclineReason("");
-          toast.success(`Successfully Declined`);
-        }
-      });
+    axios.patch(`http://localhost:5000/addArticles/${id}`, a).then((res) => {
+      // console.log("add articles", res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        setDeclineReason("");
+        toast.success(`Successfully Declined`);
+      }
+    });
   };
   return (
     <div>
