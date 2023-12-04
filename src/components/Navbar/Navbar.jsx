@@ -87,7 +87,7 @@ const Navbar = () => {
             </div>
             <div className="flex items-center justify-center">
               <img className="w-[60px]" src={logo_news} alt="" />
-               <span className="font-bold text-xl mr-3">NewsPortal</span>
+              <span className="font-bold text-xl mr-3">NewsPortal</span>
             </div>
           </div>
           <div className="navbar-center hidden lg:flex">
@@ -100,13 +100,14 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full">
+                <NavLink to="/profile" className=" w-[50px] h-[50px]">
                   <img
+                    className="rounded-full "
                     alt={user?.displayName}
                     src={user?.photoURL}
                     referrerPolicy="no-referrer"
                   />
-                </div>
+                </NavLink>
               </div>
               <button className="btn" onClick={handleLogOut}>
                 Logout

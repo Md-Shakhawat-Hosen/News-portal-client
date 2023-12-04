@@ -13,6 +13,7 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import MyArticles from "../Pages/MyArticles";
 import PremiumArticles from "../Pages/PremiumArticles";
+import Profile from "../Pages/Profile";
 import Register from "../Pages/Register";
 import Subscription from "../Pages/Subscription";
 import AdminPrivateRoute from "../Private/AdminPrivateRoute";
@@ -45,6 +46,10 @@ const Routes = createBrowserRouter([
       {
          path: '/subscription',
          element: <Subscription></Subscription>
+      },
+      {
+        path: '/profile',
+        element: <Profile></Profile>
       },
       {
         path: "my-articles",

@@ -28,7 +28,7 @@ const AllUsers = () => {
     axios
       .patch("https://newspapwer-a-12-server.vercel.app/users", makeAdmin)
       .then((res) => {
-        console.log("PATCH request successful:", res.data);
+        // console.log("PATCH request successful:", res.data);
         if (res.data.modifiedCount > 0) {
           refetch();
           //  setAllUsers(data)

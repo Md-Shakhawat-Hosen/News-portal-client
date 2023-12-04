@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     const imageFile = { image: data.image[0] };
     const res = await axios.post(image_hosting_api, imageFile, {
       headers: {
@@ -25,7 +25,7 @@ const Register = () => {
       },
     });
 
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.success) {
       createUserEmail(data.email, data.password)
         .then(() => {
